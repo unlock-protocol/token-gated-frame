@@ -8,9 +8,18 @@ export async function GET(
   request: Request,
   { params }: { params: { message: string } }
 ) {
+  const u = new URL(request.url);
+  console.log(u.searchParams.get("state"));
   const message = await getMessage(params.message);
 
-  return new ImageResponse(<Message content={message.description} />, {
+  let content = message.description;
+  if (u.searchParams.get("state") === "clear") {
+    content = message.body;
+  } else if (u.searchParams.get("state") === "hidden") {
+    content = "Sorry, you need to get a membership!";
+  }
+
+  return new ImageResponse(<Message content={content} />, {
     width: 1200,
     height: 630,
   });

@@ -1,6 +1,7 @@
 import { AppConfig } from "@/app/AppConfig";
 import { Message } from "@/app/Components/Message";
 import { getMessage } from "@/lib/messages";
+import { getImage } from "@/lib/utils";
 import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
@@ -12,7 +13,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const message = await getMessage(params.message);
-  const image = `${AppConfig.siteUrl}/api/og/${message.id}`;
+  const image = getImage(message, "pending");
   const url = `${AppConfig.siteUrl}/c/${message.id}`;
   const buttonHandler = `${AppConfig.siteUrl}/api/${message.id}/`;
 

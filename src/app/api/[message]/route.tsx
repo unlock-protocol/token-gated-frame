@@ -1,6 +1,7 @@
 import { getMessage } from "@/lib/messages";
 import { getUserAddresses, verifyMessage } from "@/lib/farcaster";
 import { balanceOf } from "@/lib/unlock";
+import { getImage } from "@/lib/utils";
 
 export const runtime = "edge";
 
@@ -11,7 +12,6 @@ export async function POST(
   const message = await getMessage(params.message);
   const body = await request.json();
   const { trustedData } = body;
-  console.log(body);
   if (!trustedData) {
     return new Response("Missing trustedData", { status: 441 });
   }
@@ -40,14 +40,33 @@ export async function POST(
   const isMember = balances.some((balance) => balance > 0);
 
   if (isMember) {
-    // We would need to generate a unique URL thet renders the image in clear
+    // We would need to generate a unique URL that renders the image in clear
     // and send that back to the user
-    return new Response(`<p>Hello!</p>`, {
-      status: 200,
-    });
+    // TODO: Make that safe... actually!
+    return new Response(
+      `<!DOCTYPE html>
+      <html>
+        <head>
+          <meta property="fc:frame" content="vNext" />
+          <meta property="fc:frame:image" content="${getImage(
+            message,
+            "clear"
+          )}" />
+        </head>
+      </html>`
+    );
   } else {
     return new Response(
-      `Nope! do not show content... but show a button to get one!`,
+      `<!DOCTYPE html>
+      <html>
+        <head>
+          <meta property="fc:frame" content="vNext" />
+          <meta property="fc:frame:image" content="${getImage(
+            message,
+            "hidden"
+          )}" />
+        </head>
+      </html>`,
       {
         status: 200,
       }
