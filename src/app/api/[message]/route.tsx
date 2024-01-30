@@ -12,6 +12,9 @@ export async function POST(
   const message = await getMessage(params.message);
   const body = await request.json();
   const { trustedData } = body;
+
+  const isMember = true;
+
   if (!trustedData) {
     console.error("Missing trustedData");
     return new Response("Missing trustedData", { status: 441 });
@@ -30,17 +33,17 @@ export async function POST(
     });
   }
 
-  const balances = await Promise.all(
-    addresses.map((userAddress: string) => {
-      return balanceOf(
-        userAddress as `0x${string}`,
-        message.gate.contract as `0x${string}`,
-        message.gate.network
-      );
-    })
-  );
+  // const balances = await Promise.all(
+  //   addresses.map((userAddress: string) => {
+  //     return balanceOf(
+  //       userAddress as `0x${string}`,
+  //       message.gate.contract as `0x${string}`,
+  //       message.gate.network
+  //     );
+  //   })
+  // );
 
-  const isMember = balances.some((balance) => balance > 0);
+  // const isMember = balances.some((balance) => balance > 0);
 
   if (isMember) {
     // We would need to generate a unique URL that renders the image in clear
