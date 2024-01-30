@@ -15,23 +15,23 @@ export async function POST(
 
   const isMember = true;
 
-  if (!trustedData) {
-    console.error("Missing trustedData");
-    return new Response("Missing trustedData", { status: 441 });
-  }
-  const fcMessage = await verifyMessage(trustedData.messageBytes);
-  if (!fcMessage.valid) {
-    console.error("Invalid message");
-    return new Response("Invalid message", { status: 442 });
-  }
+  // if (!trustedData) {
+  //   console.error("Missing trustedData");
+  //   return new Response("Missing trustedData", { status: 441 });
+  // }
+  // const fcMessage = await verifyMessage(trustedData.messageBytes);
+  // if (!fcMessage.valid) {
+  //   console.error("Invalid message");
+  //   return new Response("Invalid message", { status: 442 });
+  // }
 
-  const addresses = await getUserAddresses(fcMessage.message.data.fid);
-  if (addresses.length === 0) {
-    console.error("Missing wallet");
-    return new Response("Missing wallet addresses in your Farcaster profile!", {
-      status: 200,
-    });
-  }
+  // const addresses = await getUserAddresses(fcMessage.message.data.fid);
+  // if (addresses.length === 0) {
+  //   console.error("Missing wallet");
+  //   return new Response("Missing wallet addresses in your Farcaster profile!", {
+  //     status: 200,
+  //   });
+  // }
 
   // const balances = await Promise.all(
   //   addresses.map((userAddress: string) => {
