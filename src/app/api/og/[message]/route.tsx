@@ -2,9 +2,7 @@ import { Message } from "@/app/Components/Message";
 import { getMessage } from "@/lib/messages";
 import { ImageResponse } from "@vercel/og";
 
-export const config = {
-  runtime: "edge",
-};
+export const runtime = "edge";
 
 export async function GET(
   request: Request,

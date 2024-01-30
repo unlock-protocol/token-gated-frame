@@ -1,11 +1,8 @@
 import { getMessage } from "@/lib/messages";
 import { getUserAddresses, verifyMessage } from "@/lib/farcaster";
 import { balanceOf } from "@/lib/unlock";
-import { NextResponse } from "next/server";
 
-export const config = {
-  runtime: "edge",
-};
+export const runtime = "edge";
 
 export async function Handler(
   request: Request,
@@ -13,6 +10,7 @@ export async function Handler(
 ) {
   const message = await getMessage(params.message);
 
+  // @ts-expect-error
   const { trustedData } = request.body;
   if (!trustedData) {
     return new Response("Missing trustedData", { status: 400 });
