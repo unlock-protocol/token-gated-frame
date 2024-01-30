@@ -9,15 +9,15 @@ export async function POST(
   { params }: { params: { message: string } }
 ) {
   const message = await getMessage(params.message);
-
+  console.log(request);
   // @ts-expect-error
   const { trustedData } = request.body;
   if (!trustedData) {
-    return new Response("Missing trustedData", { status: 400 });
+    return new Response("Missing trustedData", { status: 441 });
   }
   const fcMessage = await verifyMessage(trustedData.messageBytes);
   if (!fcMessage.valid) {
-    return new Response("Invalid message", { status: 400 });
+    return new Response("Invalid message", { status: 442 });
   }
 
   const addresses = await getUserAddresses(fcMessage.message.data.fid);
