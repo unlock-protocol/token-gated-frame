@@ -4,7 +4,7 @@ import { balanceOf } from "@/lib/unlock";
 
 export const runtime = "edge";
 
-export async function Handler(
+export async function POST(
   request: Request,
   { params }: { params: { message: string } }
 ) {
