@@ -1,7 +1,6 @@
 import { getMessage } from "@/lib/messages";
 import { getUserAddresses, verifyMessage } from "@/lib/farcaster";
 import { balanceOf } from "@/lib/unlock";
-import React from "react";
 
 export const runtime = "edge";
 
@@ -12,6 +11,7 @@ export async function POST(
   const message = await getMessage(params.message);
   const body = await request.json();
   const { trustedData } = body;
+  console.log(body);
   if (!trustedData) {
     return new Response("Missing trustedData", { status: 441 });
   }
@@ -42,7 +42,7 @@ export async function POST(
   if (isMember) {
     // We would need to generate a unique URL thet renders the image in clear
     // and send that back to the user
-    return new Response("<p>Hello</p>", {
+    return new Response(`<p>Hello!</p>`, {
       status: 200,
     });
   } else {
