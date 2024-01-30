@@ -9,7 +9,7 @@ export async function POST(
   request: Request,
   { params }: { params: { message: string } }
 ) {
-  const isMember = false;
+  const isMember = true;
   const message = await getMessage(params.message);
   // const body = await request.json();
   // const { trustedData } = body;
