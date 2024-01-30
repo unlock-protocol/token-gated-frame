@@ -8,7 +8,7 @@ function hexToBytes(hex: string) {
   return new Uint8Array(bytes);
 }
 
-export const verifyMessage = async (message: string) => {
+export const validateMessage = async (message: string) => {
   const u = new URL(`${endpoint}/${version}/validateMessage`);
 
   const response = await fetch(u.toString(), {

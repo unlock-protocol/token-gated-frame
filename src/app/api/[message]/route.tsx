@@ -1,5 +1,5 @@
 import { getMessage } from "@/lib/messages";
-import { getUserAddresses, verifyMessage } from "@/lib/farcaster";
+import { validateMessage } from "@/lib/farcaster";
 import { balanceOf } from "@/lib/unlock";
 import { getImage } from "@/lib/utils";
 
@@ -11,6 +11,7 @@ export async function POST(
 ) {
   const message = await getMessage(params.message);
   const body = await request.json();
+  console.log("We have body data", body);
   const { trustedData } = body;
 
   const isMember = true;
@@ -19,13 +20,13 @@ export async function POST(
     console.error("Missing trustedData");
     return new Response("Missing trustedData", { status: 441 });
   }
-  console.log("We have trusted data", trustedData.messageBytes);
-  const fcMessage = await verifyMessage(trustedData.messageBytes);
-  if (!fcMessage.valid) {
-    console.error("Invalid message");
-    return new Response("Invalid message", { status: 442 });
-  }
-  console.log("We have valid fcMessage", fcMessage);
+  console.log("We have trusted data", trustedData);
+  // const fcMessage = await validateMessage(trustedData.messageBytes);
+  // if (!fcMessage.valid) {
+  //   console.error("Invalid message");
+  //   return new Response("Invalid message", { status: 442 });
+  // }
+  // console.log("We have valid fcMessage", fcMessage);
 
   // const addresses = await getUserAddresses(fcMessage.message.data.fid);
   // if (addresses.length === 0) {
