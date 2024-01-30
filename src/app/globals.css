@@ -16,6 +16,10 @@
   }
 }
 
+html {
+  min-height: 100%;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,6 +28,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  min-height: 100%;
 }
 
 @layer utilities {
