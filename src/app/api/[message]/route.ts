@@ -9,9 +9,9 @@ export async function POST(
   { params }: { params: { message: string } }
 ) {
   const message = await getMessage(params.message);
-  console.log(request);
-  // @ts-expect-error
-  const { trustedData } = request.body;
+  const body = await request.json();
+  console.log(body);
+  const { trustedData } = body;
   if (!trustedData) {
     return new Response("Missing trustedData", { status: 441 });
   }
