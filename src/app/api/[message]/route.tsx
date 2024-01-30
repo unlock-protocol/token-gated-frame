@@ -42,7 +42,7 @@ export async function POST(
   if (isMember) {
     // We would need to generate a unique URL thet renders the image in clear
     // and send that back to the user
-    return new Response(ReactDOM.render(<p>Hello</p>), {
+    return new Response("<p>Hello</p>", {
       status: 200,
     });
   } else {
