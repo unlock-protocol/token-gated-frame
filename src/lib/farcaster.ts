@@ -1,5 +1,3 @@
-import axios from "axios";
-
 const endpoint = "https://nemes.farcaster.xyz:2281";
 const version = "v1";
 
@@ -11,30 +9,31 @@ function hexToBytes(hex: string) {
 }
 
 export const verifyMessage = async (message: string) => {
-  const res = await axios.post(
-    `${endpoint}/${version}/validateMessage`,
-    hexToBytes(message),
-    {
-      headers: {
-        "Content-Type": "application/octet-stream",
-      },
-    }
-  );
-  return res.data;
+  const u = new URL(`${endpoint}/${version}/validateMessage`);
+
+  const response = await fetch(u.toString(), {
+    method: "POST",
+    body: hexToBytes(message),
+    headers: {
+      "Content-Type": "application/octet-stream",
+    },
+  });
+  return response.json();
 };
 
 export const getUserProfile = async (fid: string) => {
-  const res = await axios.get(`${endpoint}/${version}/userDataByFid`, {
-    params: { fid },
-  });
-  return res.data;
+  const u = new URL(`${endpoint}/${version}/userDataByFid`);
+  u.searchParams.append("fid", fid);
+  const response = await fetch(u.toString());
+  return response.json();
 };
 
 export const getUserAddresses = async (fid: string) => {
-  const res = await axios.get(`${endpoint}/${version}/verificationsByFid`, {
-    params: { fid },
-  });
-  return res.data.messages
+  const u = new URL(`${endpoint}/${version}/verificationsByFid`);
+  u.searchParams.append("fid", fid);
+  const response = await fetch(u.toString());
+  const data = await response.json();
+  return data.messages
     .filter((message: any) => {
       return message.data.type === "MESSAGE_TYPE_VERIFICATION_ADD_ETH_ADDRESS";
     })

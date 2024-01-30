@@ -11,7 +11,6 @@
   "dependencies": {
     "@tailwindcss/typography": "^0.5.10",
     "@vercel/og": "^0.6.2",
-    "axios": "^1.6.7",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
