@@ -18,6 +18,7 @@ export const validateMessage = async (message: string) => {
       "Content-Type": "application/octet-stream",
     },
   });
+  console.log(response.status);
   return response.json();
 };
 
