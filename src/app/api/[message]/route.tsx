@@ -21,12 +21,12 @@ export async function POST(
     return new Response("Missing trustedData", { status: 441 });
   }
   console.log("We have trusted data", trustedData);
-  // const fcMessage = await validateMessage(trustedData.messageBytes);
-  // if (!fcMessage.valid) {
-  //   console.error("Invalid message");
-  //   return new Response("Invalid message", { status: 442 });
-  // }
-  // console.log("We have valid fcMessage", fcMessage);
+  const fcMessage = await validateMessage(trustedData.messageBytes);
+  if (!fcMessage.valid) {
+    console.error("Invalid message");
+    return new Response("Invalid message", { status: 442 });
+  }
+  console.log("We have valid fcMessage", fcMessage);
 
   // const addresses = await getUserAddresses(fcMessage.message.data.fid);
   // if (addresses.length === 0) {
