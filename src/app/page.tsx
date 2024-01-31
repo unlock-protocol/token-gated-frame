@@ -39,7 +39,7 @@ export default async function Home() {
         <Link
           target="_blank"
           className="underline"
-          href="https://warpcast.com/julien51.eth/0xa5ec13e9c1bc2145d3e378b05886c36d5711de37"
+          href="https://warpcast.com/julien51.eth/0xa5390f5a"
         >
           Demo
         </Link>{" "}
