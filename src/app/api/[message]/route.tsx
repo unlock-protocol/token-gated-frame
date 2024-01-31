@@ -1,5 +1,5 @@
 import { getMessage } from "@/lib/messages";
-import { validateMessage } from "@/lib/farcaster";
+import { getUserAddresses, validateMessage } from "@/lib/farcaster";
 import { balanceOf } from "@/lib/unlock";
 import { getImage } from "@/lib/utils";
 
@@ -10,8 +10,6 @@ export async function POST(
   const message = await getMessage(params.message);
   const body = await request.json();
   const { trustedData } = body;
-
-  const isMember = true;
 
   if (!trustedData) {
     console.error("Missing trustedData");
@@ -26,25 +24,25 @@ export async function POST(
     return new Response("Invalid message", { status: 442 });
   }
 
-  // const addresses = await getUserAddresses(fcMessage.message.data.fid);
-  // if (addresses.length === 0) {
-  //   console.error("Missing wallet");
-  //   return new Response("Missing wallet addresses in your Farcaster profile!", {
-  //     status: 200,
-  //   });
-  // }
+  const addresses = await getUserAddresses(fcMessage.message.data.fid);
+  if (addresses.length === 0) {
+    console.error("Missing wallet");
+    return new Response("Missing wallet addresses in your Farcaster profile!", {
+      status: 200,
+    });
+  }
 
-  // const balances = await Promise.all(
-  //   addresses.map((userAddress: string) => {
-  //     return balanceOf(
-  //       userAddress as `0x${string}`,
-  //       message.gate.contract as `0x${string}`,
-  //       message.gate.network
-  //     );
-  //   })
-  // );
+  const balances = await Promise.all(
+    addresses.map((userAddress: string) => {
+      return balanceOf(
+        userAddress as `0x${string}`,
+        message.gate.contract as `0x${string}`,
+        message.gate.network
+      );
+    })
+  );
 
-  // const isMember = balances.some((balance) => balance > 0);
+  const isMember = balances.some((balance) => balance > 0);
 
   if (isMember) {
     // We would need to generate a unique URL that renders the image in clear
