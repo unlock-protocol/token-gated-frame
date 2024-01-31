@@ -1,11 +1,13 @@
 import { getMessage } from "@/lib/messages";
 import { AppConfig } from "@/app/AppConfig";
 
-export async function POST(
+export async function GET(
   request: Request,
   { params }: { params: { message: string } }
 ) {
-  return new Response(`${AppConfig.siteUrl}/api/${params.message}/redirect`, {
+  const message = await getMessage(params.message);
+
+  return new Response(message.checkoutUrl, {
     status: 302,
   });
 }
