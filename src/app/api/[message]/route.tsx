@@ -11,6 +11,7 @@ export async function POST(
   const message = await getMessage(params.message);
   const body = await request.json();
   const { trustedData } = body;
+  console.log(JSON.stringify(trustedData, null, 2));
 
   if (!trustedData) {
     return new Response("Missing trustedData", { status: 441 });
