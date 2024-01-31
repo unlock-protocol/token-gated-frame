@@ -8,7 +8,7 @@ export const balanceOf = async (
   const client = createPublicClient({
     transport: http(`https://rpc.unlock-protocol.com/${network}`),
   });
-  const balance = await client.readContract({
+  return await client.readContract({
     abi: [
       {
         inputs: [
@@ -26,5 +26,4 @@ export const balanceOf = async (
     functionName: "balanceOf",
     args: [user],
   });
-  console.log(balance);
 };
