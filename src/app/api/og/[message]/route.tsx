@@ -17,7 +17,7 @@ export async function GET(
     if (u.searchParams.get("state") === "clear") {
       content = message.body;
     } else if (u.searchParams.get("state") === "hidden") {
-      content = "Sorry, you need to get a membership!";
+      content = "You need to get a membership! Click below ⬇️";
     }
   }
   return new ImageResponse(<Message content={content} />, {
