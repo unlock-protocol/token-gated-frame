@@ -7,7 +7,6 @@ export async function GET(
   { params }: { params: { message: string } }
 ) {
   const u = new URL(request.url);
-  console.log(u.searchParams.get("state"));
   const message = await getMessage(params.message);
 
   let content = message.description;

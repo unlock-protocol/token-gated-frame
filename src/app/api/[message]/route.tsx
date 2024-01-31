@@ -2,6 +2,7 @@ import { getMessage } from "@/lib/messages";
 import { getUserAddresses, validateMessage } from "@/lib/farcaster";
 import { balanceOf } from "@/lib/unlock";
 import { getImage } from "@/lib/utils";
+import { AppConfig } from "@/app/AppConfig";
 
 export async function POST(
   request: Request,
@@ -12,24 +13,27 @@ export async function POST(
   const { trustedData } = body;
 
   if (!trustedData) {
-    console.error("Missing trustedData");
     return new Response("Missing trustedData", { status: 441 });
   }
-  console.log("We have trusted data", trustedData);
   const fcMessage = await validateMessage(`${trustedData.messageBytes}
 `);
-  console.log("We have valid fcMessage", fcMessage);
   if (!fcMessage.valid) {
-    console.error("Invalid message");
     return new Response("Invalid message", { status: 442 });
   }
 
   const addresses = await getUserAddresses(fcMessage.message.data.fid);
-  if (addresses.length === 0) {
-    console.error("Missing wallet");
-    return new Response("Missing wallet addresses in your Farcaster profile!", {
-      status: 200,
-    });
+  if (addresses.length === 0 || true) {
+    return new Response(
+      `<!DOCTYPE html>
+      <html>
+        <head>
+          <meta property="fc:frame" content="vNext" />
+          <meta property="fc:frame:image" content="${new URL(
+            `${AppConfig.siteUrl}/api/og/no-wallet`
+          ).toString()}" />
+        </head>
+      </html>`
+    );
   }
 
   const balances = await Promise.all(
