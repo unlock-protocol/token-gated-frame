@@ -1,5 +1,6 @@
 import { validateMessage } from "@/lib/farcaster";
 import { Inter } from "next/font/google";
+import { AppConfig } from "./AppConfig";
 
 const inter = Inter({ subsets: ["latin"] });
 

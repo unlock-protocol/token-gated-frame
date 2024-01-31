@@ -10,7 +10,6 @@ function hexToBytes(hex: string) {
 
 export const validateMessage = async (message: string) => {
   const u = new URL(`${endpoint}/${version}/validateMessage`);
-  console.log("FETCHING", u.toString());
   const response = await fetch(u.toString(), {
     method: "POST",
     body: hexToBytes(message),

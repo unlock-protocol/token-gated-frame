@@ -22,7 +22,7 @@ export async function POST(
   }
 
   const addresses = await getUserAddresses(fcMessage.message.data.fid);
-  if (addresses.length === 0 || true) {
+  if (addresses.length === 0) {
     return new Response(
       `<!DOCTYPE html>
       <html>
