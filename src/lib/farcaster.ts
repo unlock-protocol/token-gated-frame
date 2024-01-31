@@ -13,6 +13,7 @@ export const validateMessage = async (message: string) => {
   console.log("FETCHING", u.toString());
   const response = await fetch(u.toString(), {
     method: "POST",
+    body: hexToBytes(message),
     headers: {
       "Content-Type": "application/octet-stream",
     },
