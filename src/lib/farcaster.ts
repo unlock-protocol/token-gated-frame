@@ -1,4 +1,4 @@
-const endpoint = "https://nemes.farcaster.xyz";
+const endpoint = "https://nemes.farcaster.xyz:2281";
 const version = "v1";
 
 function hexToBytes(hex: string) {
@@ -17,7 +17,6 @@ export const validateMessage = async (message: string) => {
       "Content-Type": "application/octet-stream",
     },
   });
-  console.log(response.status);
   return response.json();
 };
 

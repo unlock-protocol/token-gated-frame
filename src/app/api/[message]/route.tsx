@@ -3,8 +3,6 @@ import { validateMessage } from "@/lib/farcaster";
 import { balanceOf } from "@/lib/unlock";
 import { getImage } from "@/lib/utils";
 
-export const runtime = "edge";
-
 export async function POST(
   request: Request,
   { params }: { params: { message: string } }
