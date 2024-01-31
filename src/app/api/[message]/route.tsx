@@ -31,7 +31,7 @@ export async function POST(
           <meta property="fc:frame:image" content="${new URL(
             `${AppConfig.siteUrl}/api/og/no-wallet`
           ).toString()}" />
-          <meta property="fc:frame:button:1" content="Link Wallet" />
+          <meta property="fc:frame:button:2" content="Link Wallet" />
         </head>
       </html>`
     );
@@ -62,7 +62,7 @@ export async function POST(
             message,
             "clear"
           )}" />
-          <meta property="fc:frame:button:1" content="Reshare" />
+          <meta property="fc:frame:button:3" content="Reshare" />
         </head>
       </html>`
     );
@@ -76,7 +76,7 @@ export async function POST(
             message,
             "hidden"
           )}" />
-          <meta property="fc:frame:button:1" content="Get Membership NFT!" />
+          <meta property="fc:frame:button:4" content="Get Membership NFT!" />
         </head>
       </html>`,
       {
