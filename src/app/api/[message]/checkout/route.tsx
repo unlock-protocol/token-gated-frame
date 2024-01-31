@@ -20,7 +20,7 @@ export async function POST(
   const posterProfile = await getUserProfile(
     fcMessage.message.data.frameActionBody?.castId?.fid
   );
-  console.log(posterProfile);
+  console.log(JSON.stringify(posterProfile, null, 2));
   const checkoutRedirect = new URL(request.url);
   checkoutRedirect.searchParams.append("cast", "redirect");
 
