@@ -16,7 +16,7 @@ export async function POST(
     return new Response("Missing trustedData", { status: 441 });
   }
   const fcMessage = await validateMessage(trustedData.messageBytes);
-  console.log(fcMessage);
+  console.log(fcMessage.message.data);
   if (!fcMessage.valid) {
     return new Response("Invalid message", { status: 442 });
   }
