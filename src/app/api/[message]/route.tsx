@@ -11,13 +11,11 @@ export async function POST(
   const message = await getMessage(params.message);
   const body = await request.json();
   const { trustedData } = body;
-  console.log(JSON.stringify(body, null, 2));
 
   if (!trustedData) {
     return new Response("Missing trustedData", { status: 441 });
   }
   const fcMessage = await validateMessage(trustedData.messageBytes);
-  console.log(fcMessage.message.data);
   if (!fcMessage.valid) {
     return new Response("Invalid message", { status: 442 });
   }
