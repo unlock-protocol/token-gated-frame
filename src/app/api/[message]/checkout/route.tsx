@@ -1,5 +1,4 @@
 import { getMessage } from "@/lib/messages";
-import { AppConfig } from "@/app/AppConfig";
 
 export async function POST(
   request: Request,

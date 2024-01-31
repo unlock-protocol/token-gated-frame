@@ -1,6 +1,9 @@
 export const getMessage = async (id: string) => {
   const paywallConfig = {
     pessimistic: true,
+    persistentCheckout: true,
+    title: "Unlock Community Membership",
+    skipRecipient: true,
     locks: {
       "0xb77030a7e47a5eb942a4748000125e70be598632": {
         name: "Unlock Community",

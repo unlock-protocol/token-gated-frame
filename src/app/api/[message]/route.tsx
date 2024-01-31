@@ -11,7 +11,7 @@ export async function POST(
   const message = await getMessage(params.message);
   const body = await request.json();
   const { trustedData } = body;
-  console.log(JSON.stringify(trustedData, null, 2));
+  console.log(JSON.stringify(body, null, 2));
 
   if (!trustedData) {
     return new Response("Missing trustedData", { status: 441 });
@@ -53,6 +53,12 @@ export async function POST(
     // We would need to generate a unique URL that renders the image in clear
     // and send that back to the user
     // TODO: Make that safe... actually!
+    // <meta property="fc:frame:button:1" content="Reshare" />
+    // <meta property="fc:frame:button:1:action" content="post_redirect" />
+    // <meta property="fc:frame:post_url" content="${
+    //   AppConfig.siteUrl
+    // }/api/${message.id}/reshare" />
+
     return new Response(
       `<!DOCTYPE html>
       <html>
@@ -62,11 +68,6 @@ export async function POST(
             message,
             "clear"
           )}" />
-          <meta property="fc:frame:button:1" content="Reshare" />
-          <meta property="fc:frame:button:1:action" content="post_redirect" />
-          <meta property="fc:frame:post_url" content="${
-            AppConfig.siteUrl
-          }/api/${message.id}/reshare" />
 
         </head>
       </html>`
