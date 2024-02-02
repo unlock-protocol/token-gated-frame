@@ -10,12 +10,20 @@
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.10",
+    "@tanstack/react-query": "^5.18.1",
+    "@unlock-protocol/networks": "^0.0.20",
     "@vercel/og": "^0.6.2",
+    "@vercel/postgres": "^0.7.2",
+    "@vercel/postgres-kysely": "^0.7.2",
+    "connectkit": "^1.7.0-demo",
+    "daisyui": "^4.6.1",
+    "kysely": "^0.27.2",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
-    "viem": "^2.6.1"
+    "viem": "2.x",
+    "wagmi": "^2.5.5"
   },
   "devDependencies": {
     "@types/node": "^20",

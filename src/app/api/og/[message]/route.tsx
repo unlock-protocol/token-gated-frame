@@ -13,9 +13,12 @@ export async function GET(
     content = "Please link your farcaster account to a wallet!";
   } else {
     const message = await getMessage(params.message);
-    content = message.description;
+    if (!message) {
+      return new Response("Message not found", { status: 404 });
+    }
+    content = message.frame.description;
     if (u.searchParams.get("state") === "clear") {
-      content = message.body;
+      content = message.frame.body;
     } else if (u.searchParams.get("state") === "hidden") {
       content = "You need to get a membership! Click below ⬇️";
     }

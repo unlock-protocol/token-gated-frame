@@ -3,6 +3,7 @@ import { Message } from "@/app/Components/Message";
 import { getMessage } from "@/lib/messages";
 import { getImage } from "@/lib/utils";
 import { Metadata, ResolvingMetadata } from "next";
+import Link from "next/link";
 
 type Props = {
   params: { message: string };
@@ -13,14 +14,24 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const message = await getMessage(params.message);
+  if (!message) {
+    return {
+      title: "Message not found",
+      description: "Message not found",
+      openGraph: {
+        type: "website",
+        url: `${AppConfig.siteUrl}/c/${params.message}`,
+      },
+    };
+  }
   const image = getImage(message, "pending");
   const url = `${AppConfig.siteUrl}/c/${message.id}`;
   const buttonHandler = `${AppConfig.siteUrl}/api/${message.id}/`;
 
   return {
     metadataBase: new URL(AppConfig.siteUrl),
-    title: message.title,
-    description: message.description,
+    title: message.frame.title,
+    description: message.frame.description,
     openGraph: {
       type: "website",
       url,
@@ -38,10 +49,28 @@ export async function generateMetadata(
 export default async function MessagePage({ params }: Props) {
   const message = await getMessage(params.message);
 
+  if (!message) {
+    return (
+      <div className="w-full bg-black h-screen flex items-center justify-center">
+        <Message content="Message not found" />
+      </div>
+    );
+  }
+
+  const url = `${AppConfig.siteUrl}/c/${message.id}`;
+
   return (
-    <div className="w-full bg-black h-screen flex items-center justify-center">
-      {/* By default we only render the message's description! */}
-      <Message content={message.description} />
+    <div className=" bg-black w-full h-screen flex flex-col gap-6 items-center justify-center">
+      <div className="w-[1200px] h-[630px] ">
+        <Message content={message.frame.description} />
+      </div>
+      <Link
+        href={`https://warpcast.com/~/compose?text=${message.frame.title}!&embeds[]=${url}`}
+        target="_blank"
+        className="btn"
+      >
+        Cast-it
+      </Link>
     </div>
   );
 }

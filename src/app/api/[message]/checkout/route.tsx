@@ -52,7 +52,11 @@ export async function GET(
   { params }: { params: { message: string } }
 ) {
   const message = await getMessage(params.message);
-  const checkoutUrl = new URL(message.checkoutUrl);
+  if (!message) {
+    return new Response("Message not found", { status: 404 });
+  }
+
+  const checkoutUrl = new URL(message.frame.checkoutUrl);
 
   const u = new URL(request.url);
   const cast = u.searchParams.get("cast");

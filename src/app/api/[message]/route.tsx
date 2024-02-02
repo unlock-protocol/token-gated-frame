@@ -9,6 +9,9 @@ export async function POST(
   { params }: { params: { message: string } }
 ) {
   const message = await getMessage(params.message);
+  if (!message) {
+    return new Response("Message not found", { status: 404 });
+  }
   const body = await request.json();
   const { trustedData } = body;
 
@@ -39,8 +42,8 @@ export async function POST(
     addresses.map((userAddress: string) => {
       return balanceOf(
         userAddress as `0x${string}`,
-        message.gate.contract as `0x${string}`,
-        message.gate.network
+        message.frame.gate.contract as `0x${string}`,
+        message.frame.gate.network
       );
     })
   );
@@ -48,15 +51,6 @@ export async function POST(
   const isMember = balances.some((balance) => balance > 0);
 
   if (isMember) {
-    // We would need to generate a unique URL that renders the image in clear
-    // and send that back to the user
-    // TODO: Make that safe... actually!
-    // <meta property="fc:frame:button:1" content="Reshare" />
-    // <meta property="fc:frame:button:1:action" content="post_redirect" />
-    // <meta property="fc:frame:post_url" content="${
-    //   AppConfig.siteUrl
-    // }/api/${message.id}/reshare" />
-
     return new Response(
       `<!DOCTYPE html>
       <html>
@@ -70,7 +64,7 @@ export async function POST(
         </head>
       </html>`
     );
-  } else {
+  } else if (message.frame.checkoutUrl) {
     return new Response(
       `<!DOCTYPE html>
       <html>
@@ -85,6 +79,22 @@ export async function POST(
           <meta property="fc:frame:post_url" content="${
             AppConfig.siteUrl
           }/api/${message.id}/checkout" />
+        </head>
+      </html>`,
+      {
+        status: 200,
+      }
+    );
+  } else {
+    return new Response(
+      `<!DOCTYPE html>
+      <html>
+        <head>
+          <meta property="fc:frame" content="vNext" />
+          <meta property="fc:frame:image" content="${getImage(
+            message,
+            "hidden"
+          )}" />
         </head>
       </html>`,
       {

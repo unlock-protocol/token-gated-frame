@@ -1,4 +1,22 @@
-export const getMessage = async (id: string) => {
+import { Database, Frame } from "@/types";
+import { createKysely } from "@vercel/postgres-kysely";
+import { UUID } from "crypto";
+
+const db = createKysely<Database>();
+
+export const getMessage = async (
+  id: string
+): Promise<Frame | null | undefined> => {
+  if (id !== "1") {
+    const frame = await db
+      .selectFrom("frames")
+      .select(["frame", "id"])
+      .where("id", "=", id as UUID)
+      .executeTakeFirst();
+    // @ts-expect-error
+    return frame;
+  }
+
   const paywallConfig = {
     pessimistic: true,
     persistentCheckout: true,
@@ -14,21 +32,24 @@ export const getMessage = async (id: string) => {
   };
 
   return {
-    id,
-    body: `👏 You're in the secret! 🤫. 
+    // @ts-expect-error
+    id: "1",
+    frame: {
+      body: `👏 You're in the secret! 🤫. 
 
-    You can only view this if you own a valid membership NFT from the Unlock community!
-
-    This is a token gated frame!
-    `,
-    title: "Some title",
-    description: "Are you a member of the Unlock Community? Click Reveal 🔓!",
-    gate: {
-      contract: "0xb77030a7e47a5eb942a4748000125e70be598632",
-      network: 137,
+      You can only view this if you own a valid membership NFT from the Unlock community!
+  
+      This is a token gated frame!
+      `,
+      title: "Some title",
+      description: "Are you a member of the Unlock Community? Click Reveal 🔓!",
+      gate: {
+        contract: "0xb77030a7e47a5eb942a4748000125e70be598632",
+        network: 137,
+      },
+      checkoutUrl: `https://app.unlock-protocol.com/checkout?paywallConfig=${encodeURIComponent(
+        JSON.stringify(paywallConfig)
+      )}`,
     },
-    checkoutUrl: `https://app.unlock-protocol.com/checkout?paywallConfig=${encodeURIComponent(
-      JSON.stringify(paywallConfig)
-    )}`,
   };
 };
