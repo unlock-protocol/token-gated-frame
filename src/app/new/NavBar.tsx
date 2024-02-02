@@ -1,17 +1,10 @@
 import Link from "next/link";
 import { AppConfig } from "../AppConfig";
-import { useAccount, useDisconnect } from "wagmi";
 import { ConnectKitButton } from "connectkit";
 
 export const Navbar = () => {
-  const { address, isConnecting, isDisconnected } = useAccount();
-  const { disconnect } = useDisconnect();
-  // if (isConnecting) return <div>Connecting...</div>;
-  // if (isDisconnected) return <div>Disconnected</div>;
-  // return <div>Connected Wallet: {}</div>;
-
   return (
-    <div className="navbar w-full px-8">
+    <div className="navbar w-full ">
       <div className="navbar-start">
         {/* <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -53,8 +46,8 @@ export const Navbar = () => {
             </li>
           </ul>
         </div> */}
-        <Link href={"/"} className="text-xl">
-          {AppConfig.name}
+        <Link href={"/"} className="prose">
+          <h1>{AppConfig.name}</h1>
         </Link>
       </div>
       {/* <div className="navbar-center hidden lg:flex">

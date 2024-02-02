@@ -4,7 +4,7 @@ import { Form } from "./Form";
 
 const NotConnected = () => {
   return (
-    <div className="prose">
+    <div className="prose p-2">
       <p>Please start by connecting a wallet.</p>
     </div>
   );

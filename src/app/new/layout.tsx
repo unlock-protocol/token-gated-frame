@@ -10,7 +10,7 @@ export default function NewLayout({
   return (
     <Web3Provider>
       <Navbar />
-      <div className="p-8">{children}</div>
+      {children}
     </Web3Provider>
   );
 }

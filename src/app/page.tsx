@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export default async function Home() {
   return (
-    <div className="p-8 prose">
-      <h1 className="">Token Gated Frames</h1>
-      <p className="">
+    <div className="prose p-2">
+      <h1>Token Gated Frames</h1>
+      <p>
         <Link
           target="_blank"
           className="link"
@@ -18,7 +18,7 @@ export default async function Home() {
         </Link>
         .
       </p>
-      <p className="">
+      <p>
         At{" "}
         <Link
           target="_blank"
@@ -34,23 +34,6 @@ export default async function Home() {
       <Link href={"/new"} className="btn btn-neutral">
         Get Started
       </Link>
-      <p className="paragraph">
-        <Link
-          target="_blank"
-          className="link"
-          href="https://warpcast.com/julien51.eth/0xa5390f5a"
-        >
-          Demo
-        </Link>{" "}
-        |{" "}
-        <Link
-          target="_blank"
-          className="link"
-          href="https://github.com/unlock-protocol/token-gated-frame"
-        >
-          Source code
-        </Link>
-      </p>
     </div>
   );
 }
