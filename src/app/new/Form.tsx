@@ -35,77 +35,79 @@ export const Form = () => {
         </Link>
         !
       </p>
-      <form action={formAction} className="form-control	flex gap-4">
+      <form action={formAction} className="form-control	flex">
         <input type="hidden" name="author" value={address} />
 
-        <div className="flex flex-col">
-          <label htmlFor="title">Title</label>
-          <input className="input" name="frame.title" required />
-        </div>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col">
+            <label htmlFor="title">Title</label>
+            <input className="input" name="frame.title" required />
+          </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="body">Hidden part</label>
-          <textarea
-            className="textarea textarea-borderedput"
-            placeholder="That's the hidden part!"
-            name="frame.body"
-            required
-          />
-        </div>
+          <div className="flex flex-col">
+            <label htmlFor="body">Hidden part</label>
+            <textarea
+              className="textarea textarea-borderedput"
+              placeholder="That's the hidden part!"
+              name="frame.body"
+              required
+            />
+          </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="body">Public part</label>
-          <textarea
-            className="textarea textarea-borderedput"
-            placeholder="That's the part to entice users to reveal the hidden part."
-            name="frame.description"
-            required
-          />
+          <div className="flex flex-col">
+            <label htmlFor="body">Public part</label>
+            <textarea
+              className="textarea textarea-borderedput"
+              placeholder="That's the part to entice users to reveal the hidden part."
+              name="frame.description"
+              required
+            />
+          </div>
         </div>
-
-        <div className="flex flex-col">
-          <label htmlFor="body">Checkout URL (optional)</label>
-          <input
-            className="input"
-            placeholder="A URL where users can go to purchase an NFT membership."
-            name="frame.checkoutUrl"
-          />
+        <h3>Token Gate</h3>
+        <div className="flex flex-col gap-4">
+          {" "}
+          <div className="flex flex-col">
+            <label htmlFor="body">Network</label>
+            <select
+              className="select select-bordered w-full max-w-xs"
+              name="frame.gate.network"
+              required
+            >
+              {Object.keys(networks)
+                .filter((i) => {
+                  return i !== "31337";
+                })
+                .map((network) => {
+                  return (
+                    <option key={network} value={network}>
+                      {networks[network].name}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="body">Contract address</label>
+            <input
+              className="input"
+              placeholder="0x..."
+              name="frame.gate.contract"
+              required
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="body">Checkout URL (optional)</label>
+            <input
+              className="input"
+              placeholder="A URL where users can go to purchase an NFT membership."
+              name="frame.checkoutUrl"
+            />
+          </div>
+          <button className="btn btn-neutral" type="submit">
+            Submit
+          </button>
         </div>
-
-        <div className="flex flex-col">
-          <label htmlFor="body">Network</label>
-          <select
-            className="select select-bordered w-full max-w-xs"
-            name="frame.gate.network"
-            required
-          >
-            {Object.keys(networks)
-              .filter((i) => {
-                return i !== "31337";
-              })
-              .map((network) => {
-                return (
-                  <option key={network} value={network}>
-                    {networks[network].name}
-                  </option>
-                );
-              })}
-          </select>
-        </div>
-
-        <div className="flex flex-col">
-          <label htmlFor="body">Contract address</label>
-          <input
-            className="input"
-            placeholder="A URL where users can go to purchase an NFT membership."
-            name="frame.gate.contract"
-            required
-          />
-        </div>
-
-        <button className="btn btn-neutral" type="submit">
-          Submit
-        </button>
       </form>
     </div>
   );
