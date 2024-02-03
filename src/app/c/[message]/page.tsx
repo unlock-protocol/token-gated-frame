@@ -61,7 +61,7 @@ export default async function MessagePage({ params }: Props) {
 
   return (
     <div className=" bg-black w-full h-screen flex flex-col gap-6 items-center justify-center">
-      <div className="w-[1200px] h-[630px] ">
+      <div className="aspect-og">
         <Message content={message.frame.description} />
       </div>
       <Link

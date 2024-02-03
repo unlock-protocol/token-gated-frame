@@ -7,7 +7,11 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      aspectRatio: {
+        og: "1200 / 630",
+      },
+    },
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };
