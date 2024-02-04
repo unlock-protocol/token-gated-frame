@@ -1,5 +1,3 @@
-import { AppConfig } from "@/app/AppConfig";
-
 export const getImage = (
   base: string,
   message: { id: string },

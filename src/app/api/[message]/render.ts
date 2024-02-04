@@ -11,7 +11,7 @@ interface Button {
 export const renderMessageForFid = async (
   origin: string,
   messageId: string,
-  fid: string | null
+  fid?: string | null
 ) => {
   const message = await getMessage(messageId);
   if (!message) {
@@ -107,7 +107,7 @@ export const render = async (
           })
           .join("\n")}
       </head>
-      
+
       <body>
         <img src="${image}" />
         <p>
@@ -117,6 +117,10 @@ export const render = async (
           })
           .join("<br />")}
         </p>
+        <p>
+        <a href="https://warpcast.com/~/compose?text=Check%20this%20frame!&embeds[]=${base}/c/${
+      message.id
+    }" target="_blank">Cast-it</a>
       </body>
     </html>`,
     {

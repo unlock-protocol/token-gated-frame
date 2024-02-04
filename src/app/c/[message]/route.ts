@@ -5,6 +5,5 @@ export async function GET(
   { params }: { params: { message: string } }
 ) {
   const u = new URL(request.url);
-  const fid = u.searchParams.get("fid");
-  return renderMessageForFid(u.origin, params.message, fid);
+  return renderMessageForFid(u.origin, params.message);
 }
