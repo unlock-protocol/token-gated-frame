@@ -23,12 +23,14 @@ export async function POST(
   );
 }
 
-// REMOVE ME FOR PROD!
 export async function GET(
   request: Request,
   { params }: { params: { message: string } }
 ) {
   const u = new URL(request.url);
+  if (u.origin !== "http://localhost:3000") {
+    return new Response("Invalid origin", { status: 443 });
+  }
   const fid = u.searchParams.get("fid");
   return renderMessageForFid(u.origin, params.message, fid);
 }

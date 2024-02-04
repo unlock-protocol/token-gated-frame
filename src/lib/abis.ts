@@ -16,6 +16,13 @@ export const ABIs = {
       stateMutability: "view",
       type: "function",
     },
+    {
+      inputs: [],
+      name: "decimals",
+      outputs: [{ internalType: "uint256", name: "balance", type: "uint256" }],
+      stateMutability: "view",
+      type: "function",
+    },
   ],
   ERC1155: [
     {

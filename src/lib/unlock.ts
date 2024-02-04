@@ -16,5 +16,16 @@ export const meetsRequirement = async (user: `0x${string}`, gate: any) => {
   })) as number;
   const requiredBalance =
     typeof gate.balance === "undefined" ? 1 : parseInt(gate.balance);
-  return balance >= requiredBalance;
+
+  if (gate.type === "ERC20") {
+    // We need to get the decimals!
+    const decimals = (await client.readContract({
+      abi: abi,
+      address: gate.contract,
+      functionName: "decimals",
+    })) as number;
+    return balance >= requiredBalance * 10 ** Number(decimals);
+  } else {
+    return balance >= requiredBalance;
+  }
 };
