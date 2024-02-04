@@ -12,5 +12,10 @@ export async function GET(
     return new Response("Message not found", { status: 404 });
   }
 
-  return render(u.origin, message, "pending");
+  return render(origin, message, "pending", `${origin}/api/${message.id}/`, [
+    {
+      label: "Reveal 🔓",
+      action: "post",
+    },
+  ]);
 }
