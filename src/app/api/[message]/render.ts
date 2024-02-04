@@ -109,19 +109,13 @@ export const render = async (
           .join("\n")}
       </head>
 
-      <body>
-        <img src="${image}" />
+      <body style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column;">
+        <img style="border: 2px solid #000; border-radius: 10px;" src="${image}" />
         <p>
-        ${(buttons || [])
-          .map((button) => {
-            return `<button>${button.label}</button>`;
-          })
-          .join("<br />")}
-        </p>
-        <p>
-        <a href="https://warpcast.com/~/compose?text=Check%20this%20frame!&embeds[]=${base}/c/${
+          <a style="display: inline-block; padding: 10px 20px; font-size: 16px; cursor: pointer; text-align: center; text-decoration: none; color: #ffffff; background-color: #007bff; border: none; border-radius: 5px;" href="https://warpcast.com/~/compose?text=Check%20this%20frame!&embeds[]=${base}/c/${
       message.id
     }" target="_blank">Cast-it</a>
+        </p>
       </body>
     </html>`,
     {
