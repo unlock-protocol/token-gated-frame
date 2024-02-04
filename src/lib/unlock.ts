@@ -1,29 +1,20 @@
 import { createPublicClient, http } from "viem";
+import { ABIs } from "./abis";
 
-export const balanceOf = async (
-  user: `0x${string}`,
-  contract: `0x${string}`,
-  network: number
-) => {
+export const meetsRequirement = async (user: `0x${string}`, gate: any) => {
   const client = createPublicClient({
-    transport: http(`https://rpc.unlock-protocol.com/${network}`),
+    transport: http(`https://rpc.unlock-protocol.com/${gate.network}`),
   });
-  return await client.readContract({
-    abi: [
-      {
-        inputs: [
-          { internalType: "address", name: "_keyOwner", type: "address" },
-        ],
-        name: "balanceOf",
-        outputs: [
-          { internalType: "uint256", name: "balance", type: "uint256" },
-        ],
-        stateMutability: "view",
-        type: "function",
-      },
-    ],
-    address: contract,
+
+  const abi = ABIs[(gate.type || "ERC721") as keyof typeof ABIs];
+  const args = gate.type === "ERC1155" ? [user, gate.token] : [user];
+  const balance = (await client.readContract({
+    abi: abi,
+    address: gate.contract,
     functionName: "balanceOf",
-    args: [user],
-  });
+    args,
+  })) as number;
+  const requiredBalance =
+    typeof gate.balance === "undefined" ? 1 : parseInt(gate.balance);
+  return balance > requiredBalance;
 };

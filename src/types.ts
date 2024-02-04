@@ -17,6 +17,7 @@ export interface FrameFields {
   title: string;
   description: string;
   checkoutUrl: string;
+  denied: string;
   gate: {
     contract: string;
     network: number;

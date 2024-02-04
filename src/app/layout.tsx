@@ -18,10 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <main className="p-8">{children}</main>
-        <footer className="prose">
-          <p className="p-10">
+      <body className={`${inter.className} flex flex-col min-h-screen`}>
+        <main className="md:p-8 grow">{children}</main>
+        <footer className="prose p-2 md:p-10 mt-8">
+          <p className="">
             <Link
               target="_blank"
               className="link"

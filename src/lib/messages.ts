@@ -35,14 +35,16 @@ export const getMessage = async (
     // @ts-expect-error
     id: "1",
     frame: {
+      title: "Some title",
       body: `👏 You're in the secret! 🤫. 
 
       You can only view this if you own a valid membership NFT from the Unlock community!
   
       This is a token gated frame!
       `,
-      title: "Some title",
       description: "Are you a member of the Unlock Community? Click Reveal 🔓!",
+      denied:
+        "You are not a member of the Unlock Community. Click below to get the free token!",
       gate: {
         contract: "0xb77030a7e47a5eb942a4748000125e70be598632",
         network: 137,

@@ -7,9 +7,8 @@ export async function GET(
   { params }: { params: { message: string } }
 ) {
   const u = new URL(request.url);
-
   let content = "";
-  if (params.message === "no-wallet") {
+  if (u.searchParams.get("state") === "no-wallet") {
     content = "Please link your farcaster account to a wallet!";
   } else {
     const message = await getMessage(params.message);
@@ -19,8 +18,9 @@ export async function GET(
     content = message.frame.description;
     if (u.searchParams.get("state") === "clear") {
       content = message.frame.body;
-    } else if (u.searchParams.get("state") === "hidden") {
-      content = "You need to get a membership! Click below ⬇️";
+    } else if (u.searchParams.get("state") === "denied") {
+      content =
+        message.frame.denied || "You need to get a membership! Click below ⬇️";
     }
   }
   return new ImageResponse(<Message content={content} />, {
