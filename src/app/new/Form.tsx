@@ -157,6 +157,7 @@ export const Form = () => {
           <div className="flex flex-col">
             <label htmlFor="body">Checkout URL (optional)</label>
             <input
+              type="url"
               className="input "
               placeholder="A URL where users can go to purchase the token(s)."
               name="frame.checkoutUrl"
