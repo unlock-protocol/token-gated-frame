@@ -80,6 +80,7 @@ export const render = async (
       <head>
         <meta name="description" content="${message.frame.description}">
         
+        <meta property="og:title" content="${message.frame.title}">
         <meta property="og:description" content="${message.frame.description}">
         <meta property="og:url" content="${base}/c/${message.id}">
         <meta property="og:image" content="${base}/api/og/${message.id}">
