@@ -7,7 +7,8 @@ const db = createKysely<Database>();
 export const getMessage = async (
   id: string
 ): Promise<Frame | null | undefined> => {
-  if (id !== "1" && id !== "0") {
+  // Support for the legacy demo (used ints for id!)
+  if (parseInt(id).toString() !== id) {
     const frame = await db
       .selectFrom("frames")
       .select(["frame", "id"])
