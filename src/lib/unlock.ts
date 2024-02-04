@@ -16,5 +16,5 @@ export const meetsRequirement = async (user: `0x${string}`, gate: any) => {
   })) as number;
   const requiredBalance =
     typeof gate.balance === "undefined" ? 1 : parseInt(gate.balance);
-  return balance > requiredBalance;
+  return balance >= requiredBalance;
 };
