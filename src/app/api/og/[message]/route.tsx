@@ -18,7 +18,7 @@ export async function GET(
     content = message.frame.description;
     if (u.searchParams.get("state") === "clear") {
       content = message.frame.body;
-    } else if (u.searchParams.get("state") === "denied") {
+    } else if (u.searchParams.get("state") === "hidden") {
       content =
         message.frame.denied || "You need to get a membership! Click below ⬇️";
     }
